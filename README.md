@@ -49,10 +49,3 @@ python main.py --help
 - **data/**: Sample data files for testing and validation.
 - **utils/**: Helper functions for preprocessing and evaluation.
 
-## Contributing
-
-Contributions are welcome! Please fork the repository and create a pull request for any new features or bug fixes.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
