@@ -1,28 +1,33 @@
-Sentiment Analysis GPU
-======================
+RAG-FAISS Embedding with SQLite Pipeline
+========================================
 
-A high-performance sentiment analysis project leveraging GPU acceleration for faster processing. This repository features a machine learning pipeline that processes and classifies text sentiment, optimized for GPU use to handle large datasets efficiently.
+This project implements a Retrieval-Augmented Generation (RAG) system combined with FAISS for efficient information retrieval and embedding search, supported by a FastAPI server for API access. It includes vector storage using SQLite and a complete data ingestion and query pipeline.
 
 ## Features
 
-- **GPU-Accelerated Processing**: Utilizes CUDA-compatible GPUs for significantly faster analysis and training times.
-- **Flexible Model Integration**: Supports various pre-trained models and custom configurations.
-- **Scalable Architecture**: Capable of handling large-scale datasets for research or production use.
-- **Comprehensive Sentiment Analysis**: Classifies text as positive, negative, or neutral with high accuracy.
+- **Embedding Creation and Storage**: Generates vector embeddings and stores them in FAISS and SQLite for fast similarity search.
+- **Data Ingestion**: Processes unstructured HTML data into a structured format for vectorization.
+- **API Access**: Exposes endpoints using FastAPI for real-time search and response generation.
+- **Health Check**: Includes a health check endpoint for easy monitoring.
+- **Scripted Pipelines**: Bash scripts automate data processing and server startup.
 
-## Requirements
+## Project Structure
 
-- Python 3.x
-- CUDA-compatible GPU
-- PyTorch or TensorFlow with GPU support
-- Required Python libraries listed in `requirements.txt`
+- **1-rag-faiss-sqlite-pipeline.sh**: Shell script for data processing and initializing the RAG datastore manager.
+- **3-fastapi-uvicorn-server.sh**: Script to start the FastAPI server with Uvicorn, including a browser auto-launch for documentation.
+- **config.py**: Configuration settings for the RAG and FAISS system.
+- **data_ingestion.py**: Script for processing and ingesting raw data into the system.
+- **database.py**: Manages interactions with the SQLite database for storing metadata.
+- **faiss_store.py**: Handles the FAISS index creation and storage of vector embeddings.
+- **query.py**: Main FastAPI application for search queries.
+- **vectorization.py**: Contains functions for vectorizing text data using sentence-transformers.
 
 ## Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/luzbetak/sentiment-analysis-gpu.git
-   cd sentiment-analysis-gpu
+   git clone https://github.com/luzbetak/rag-faiss-embedding.git
+   cd rag-faiss-embedding
    ```
 
 2. Install dependencies:
@@ -30,22 +35,31 @@ A high-performance sentiment analysis project leveraging GPU acceleration for fa
    pip install -r requirements.txt
    ```
 
+3. Ensure FAISS and SQLite are properly installed.
+
 ## Usage
 
-Run the sentiment analysis script using the following command:
-```bash
-python main.py --input data/sample_input.txt --use-gpu
-```
+1. Run the data ingestion and setup pipeline:
+   ```bash
+   ./1-rag-faiss-sqlite-pipeline.sh
+   ```
 
-For additional options, refer to the `--help` flag:
-```bash
-python main.py --help
-```
+2. Start the FastAPI server:
+   ```bash
+   ./3-fastapi-uvicorn-server.sh
+   ```
 
-## Project Structure
+   - Access the API documentation at [http://localhost:8000/docs](http://localhost:8000/docs).
 
-- **main.py**: Main script for running sentiment analysis.
-- **models/**: Directory containing pre-trained and custom models.
-- **data/**: Sample data files for testing and validation.
-- **utils/**: Helper functions for preprocessing and evaluation.
+## API Endpoints
 
+- **POST /search**: Search and generate responses.
+- **GET /health**: Health check endpoint.
+
+## Contributing
+
+Contributions are welcome! Fork the repository and submit a pull request for any enhancements or bug fixes.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
